@@ -127,6 +127,19 @@ spec:
   type: LoadBalancer
 ```
 
+## Create a Kubernetes Cluster
+Set up a Kubernetes cluster, either locally using tools like Minikube or in the cloud using a service like AWS EKS, Google GKE, or Azure AKS.
 
+## Deploy the Application onto the Kubernetes Cluster
+Apply the Kubernetes manifest file to deploy your application to the cluster:
+```
+kubectl apply -f app.yml
+```
+## Test Your Deployed Application
+Access your application using the external IP provided by the LoadBalancer service (for cloud deployments) or use port forwarding if running locally:
+```
+kubectl port-forward service/nodejs-app-service 85:80
+```
+Access your application in a web browser at ``` http://localhost:85 ```.
 
 
