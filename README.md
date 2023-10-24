@@ -48,4 +48,36 @@ app.listen(port, () => {            //server starts listening for any attempts f
 ```
 Also Create your Node.js application file `` index.html `` and write your html code in it.
 
+## Test the Application Locally
+You can test your Node.js application locally by running:
 
+```
+node app.js
+```
+Access your application in a web browser at `` http://localhost:5005 `` or the appropriate port.
+
+## Dockerize Application (Create Dockerfile)
+Create a Dockerfile in your project directory to package your Node.js application into a Docker image. Here's an example Dockerfile for a Node.js application:
+
+```
+# Use the official Node.js image
+FROM node
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install application dependencies
+RUN npm install
+
+# Copy application code
+COPY . .
+
+# Expose the port your app runs on
+EXPOSE 5005
+
+# Start the application
+CMD ["node", "app.js"]
+```
