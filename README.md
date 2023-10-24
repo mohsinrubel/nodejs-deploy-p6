@@ -81,3 +81,52 @@ EXPOSE 5005
 # Start the application
 CMD ["node", "app.js"]
 ```
+
+## Build and Push Image to a Docker Registry
+Build your Docker image and push it to a container registry. Replace <username>/<image> with your Docker Hub username and image name:
+
+```
+docker build -t <username>/<image> .
+docker push <username>/<image>
+```
+## Create a Kubernetes Manifest File
+Create a Kubernetes manifest file (e.g., app.yml) to define how your application will run in a Kubernetes cluster. Here's an example for a Deployment and Service:
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+      - name: nodejs-app
+        image: <username>/<image> # your dockerhub username and docker hub image
+        ports:
+        - containerPort: 5005
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-app-service
+spec:
+  selector:
+    app: nodejs-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5005
+  type: LoadBalancer
+```
+
+
+
+
